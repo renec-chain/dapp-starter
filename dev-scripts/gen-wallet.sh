@@ -1,14 +1,18 @@
 #!/bin/bash
 
 # Check if the folder exists, if not, create it
-FOLDER="solana_wallets"
+FOLDER=".wallets"
 if [ ! -d "$FOLDER" ]; then
   mkdir -p "$FOLDER"
 fi
 
+if [[ -n $1 ]]; then
+    WALLET_NAME=$1
+else
+    WALLET_NAME="id"
+fi
 
 # Generate a new Solana wallet
-WALLET_NAME="id"
 solana-keygen new --outfile "$FOLDER/$WALLET_NAME.json" 
 
 WALLET_ADDRESS=$(solana address -k "$FOLDER/$WALLET_NAME.json")

@@ -1,4 +1,5 @@
 target/
 node_modules/
+test-ledger/
 
-solana_wallets
+.wallets

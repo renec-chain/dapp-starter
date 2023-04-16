@@ -8,16 +8,16 @@
 #   $ source ci/solana-version.sh install
 
 # Then to access the solana version:
-#   $ echo "$solana_version"
+#   $ echo "$cli_version"
 #
 
-if [[ -n $SOLANA_VERSION ]]; then
-  solana_version="$SOLANA_VERSION"
+if [[ -n $CLI_VERSION ]]; then
+  cli_version="$CLI_VERSION"
 else
-  solana_version=1.14.6
+  cli_version=1.14.6
 fi
 
-export solana_version="$solana_version"
+export cli_version="$cli_version"
 export PATH="$HOME"/.local/share/solana/install/active_release/bin:"$PATH"
 
 if [[ -n $1 ]]; then
@@ -25,10 +25,10 @@ if [[ -n $1 ]]; then
   install)
     # Check if the installed solana version is the same as the desired version
     installed_version=$(solana --version 2>/dev/null | awk '{print $2}' || echo "")
-    if [[ "$installed_version" == "$solana_version" ]]; then
-      echo "solana-version.sh: solana $solana_version is already installed, skipping download."
+    if [[ "$installed_version" == "$cli_version" ]]; then
+      echo "solana-version.sh: solana $cli_version is already installed, skipping download."
     else
-      sh -c "$(curl -sSfL https://release.solana.com/v$solana_version/install)"
+      sh -c "$(curl -sSfL https://release.solana.com/v$cli_version/install)"
       solana --version
     fi
     ;;
