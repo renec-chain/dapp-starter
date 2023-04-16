@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+
+
 set -e
 
 source dev-scripts/environments/solana-version.sh install
