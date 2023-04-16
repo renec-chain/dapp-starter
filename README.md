@@ -50,3 +50,14 @@ make faucet amount=3  name="kien"
 ```
 
 If not passing `name`, default name of the wallet will be `id`.
+
+### Build && Deploy
+
+- To build program:
+
+```
+make build
+```
+
+This command will generate `program keypair`if needed, and replace it inside `programs/dapp-starter/src/lib.rs` file.
+Then it will build the program and generate `program so` file.
