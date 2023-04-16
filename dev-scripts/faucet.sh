@@ -3,7 +3,6 @@
 # Check if the folder exists, if not, create it
 FOLDER=".wallets"
 
-WALLET_NAME="id"
 AMOUNT=""
 
 # Parse the arguments
@@ -24,6 +23,12 @@ while [[ $# -gt 0 ]]; do
       ;;
   esac
 done
+
+# Check if name is empty
+if [[ -z $WALLET_NAME ]]; then
+  WALLET_NAME="id"
+fi
+
 # Get wallet
 WALLET_ADDRESS=$(solana address -k "$FOLDER/$WALLET_NAME.json")
 

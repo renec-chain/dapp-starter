@@ -25,10 +25,16 @@ vd:
 CLI_VERSION=1.9.29 ANCHOR_VERSION=0.20.1 make install-deps
 ```
 
-- To setup cli cluster config, run:
+- To run a `localnet` that has the same version as `renec-mainnet`, run;
 
 ```
-CLUSTER=testnet make set-cluster-url
+make localnet
+```
+
+- To run a `localnet` that has the same version as `renec-testnet`, run;
+
+```
+CLUSTER=testnet make localnet
 ```
 
 `CLUSTER` variables can be either `mainnet`, `testnet` or `localnet`, which corresponding to `RENEC cluster url`. Default `CLUSTER` is `testnet`.
@@ -61,3 +67,11 @@ make build
 
 This command will generate `program keypair`if needed, and replace it inside `programs/dapp-starter/src/lib.rs` file.
 Then it will build the program and generate `program so` file.
+
+- To deploy
+
+```
+CLUSTER=mainnet make deploy
+```
+
+This command deploy the program, under `.wallets/id.json` authority. The program will be deploy to `CLUSTER` env, which could either be `localnet`, `mainnet` or `testnet`
