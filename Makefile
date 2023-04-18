@@ -5,7 +5,6 @@ export RENEC_MAINNET_URL:= https://api-mainnet-beta.renec.foundation:8899/
 export RENEC_LOCALNET_URL:= http://127.0.0.1:8899
 
 CLUSTER ?= testnet
-CLI_VERSION ?= 1.14.6
 
 export CLUSTER_URL := $(if $(filter testnet,$(CLUSTER)),$(RENEC_TESTNET_URL),\
                  $(if $(filter mainnet,$(CLUSTER)),$(RENEC_MAINNET_URL),\
@@ -17,7 +16,7 @@ export CLI_VERSION := $(if $(filter testnet,$(CLUSTER)),1.14.6,$(if $(filter mai
 show-network-config:
 	@echo "interacting with cluster: $(CLUSTER_URL), CLI_VERSION: $(CLI_VERSION)"
 
-install-deps:
+install-deps: show-network-config
 	@. ./dev-scripts/install-program-deps.sh
 
 localnet:
@@ -27,8 +26,7 @@ localnet:
 gen-wallet: install-deps
 	@./dev-scripts/gen-wallet.sh "$(name)"
 
-
-faucet: show-network-config
+faucet: 
 	@$(MAKE) install-deps CLI_VERSION=$(CLI_VERSION)
 	@./dev-scripts/faucet.sh --name "$(name)" $(amount)
 

@@ -18,12 +18,14 @@ make install-deps
 
 This will install the `anchor` and `solana` cli if needed. Default `solana 1.14.6`, `anchor 0.25.0`
 
-To use different version, set the `CLI_VERSION` and `ANCHOR_VERSION` environment variables and run the command
+To use different version that compatible with `renec cluster`, set the `CLUSTER` and `ANCHOR_VERSION` environment variables and run the command
 vd:
 
 ```
-CLI_VERSION=1.9.29 ANCHOR_VERSION=0.20.1 make install-deps
+CLUSTER=mainnet ANCHOR_VERSION=0.20.1 make install-deps
 ```
+
+`CLUSTER` can either be `mainnet`, `testnet` or `localnet`. By setting cluster correctly, the installer will set the correct `cli` for interaction
 
 - To run a `localnet` that has the same version as `renec-mainnet`, run;
 
