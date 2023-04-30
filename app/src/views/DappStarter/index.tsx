@@ -1,16 +1,15 @@
 import { FC, useEffect, useState } from "react";
 import { useAnchorWallet, useConnection } from "@solana/wallet-adapter-react";
-
-
+import * as anchor from "@project-serum/anchor";
 
 import styles from "./index.module.css";
-import { initialize, getCounter} from "./methods";
+import { initialize, getCounter, increment} from "./methods";
 import { useProgram } from "./useProgram";
+import useLocalStorage from "hooks/useLocalStorage";
 
 
 export const DappStarterView: FC = ({}) => {
   const {connection} = useConnection();
-
   const [isAirDropped, setIsAirDropped] = useState(false);
   const wallet = useAnchorWallet();
 
@@ -62,32 +61,95 @@ const DappStarterScreen = () => {
   const {connection} = useConnection();
   const wallet: any = useAnchorWallet();
   const { program } = useProgram({ connection, wallet });
+  const [counter, setCounter] = useState<anchor.BN>();
+  const [configPubkey, setConfigPubkey] = useLocalStorage<anchor.web3.PublicKey | null>('configPubkey', null)
   const [lastUpdatedTime, setLastUpdatedTime] = useState<number>();
-
-  
 
   useEffect(() => {
     fetchCounter();
   }, [wallet, lastUpdatedTime]);
 
   const fetchCounter = async () => {
-    // pass 
+    if (!program){
+      return "program undefined"
+    }
+    if(!configPubkey){
+      return "config pubkey undefined"
+    }
+    let counter = await getCounter(program, configPubkey);
+    setCounter(counter)
   };  
 
-  const handleClick = async () => {
+  const handleIncrement = async () => {
     try {
-      await initialize(program!);
-      console.log('Counter initialized');
+      let tx=  await increment(program!, configPubkey!);
+      console.log("tx: ", tx);
+
+      // Update the counter after increment
+      await fetchCounter();
+    } catch (error) {
+      console.error('Error fail to increment counter:', error);
+    }
+  };
+
+  const handleClickInitialize = async () => {
+    try {
+      let configAddr = await initialize(program!);
+      setConfigPubkey(configAddr);
+      setCounter(new anchor.BN(0))
     } catch (error) {
       console.error('Error fail to initialize counter:', error);
     }
   };
 
-
   return (
-    <button onClick={handleClick}>
-          pressme
-      </button>
-    
+    <div className="container mx-auto max-w-6xl p-8 2xl:px-0">
+      <div className="flex flex-col items-start">
+        <div className="initialize flex items-center">
+          <div className="mr-2">
+            Counter Config: 
+          </div>
+
+          {configPubkey ? (
+          <div>
+           {configPubkey.toString()}
+          </div>
+        ) : (
+          <button
+            className="btn btn-primary normal-case btn-xs"
+            onClick={handleClickInitialize}
+          >
+            Initialize Config
+          </button>
+        )}
+        </div>
+
+        <div className="value">
+          {counter !== undefined && (
+            <p className="counter text-xl mb-4">
+              Counter: {counter.toNumber()}
+            </p>
+          )}
+        </div>
+        <div className="increment flex items-center">
+          <div className="mr-2">
+            Increment counter: 
+          </div>
+          {configPubkey ? (
+            <button
+              className="btn btn-primary normal-case btn-xs"
+              onClick={handleIncrement}
+            >
+              Increment
+            </button>
+          ) : (
+            <p>
+              Please initialize the config first.
+            </p>
+          )}
+        </div>
+      </div>
+    </div>
   );
+  
 };

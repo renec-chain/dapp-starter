@@ -9,7 +9,9 @@ export const getCounter = async (
   return accountData.count;
 };
 
-export const initialize = async (program: anchor.Program<DappStarter>) => {
+export const initialize = async (
+  program: anchor.Program<DappStarter>
+): Promise<anchor.web3.PublicKey> => {
   let config = new anchor.web3.Keypair();
 
   let tx = await program.rpc.initialize({
@@ -20,5 +22,20 @@ export const initialize = async (program: anchor.Program<DappStarter>) => {
     },
     signers: [config],
   });
-  console.log("tx: ", tx);
+  return config.publicKey;
+};
+
+export const increment = async (
+  program: anchor.Program<DappStarter>,
+  configPubkey: anchor.web3.PublicKey
+) => {
+  let tx = await program.rpc.increment({
+    accounts: {
+      config: configPubkey,
+      user: program.provider.wallet.publicKey,
+    },
+    signers: [],
+  });
+
+  return tx;
 };
