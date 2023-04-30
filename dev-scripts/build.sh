@@ -30,3 +30,11 @@ anchor build
 # Copy the artifacts in to app
 cp target/idl/dapp_starter.json app/src/artifacts
 cp target/types/dapp_starter.ts app/src/artifacts
+
+APP_CONFIG_FILE="app/src/artifacts/config.json"
+# Update the PROGRAM_ID in the config.json file
+TEMP_FILE=$(mktemp)
+jq --arg program_id "$PROGRAM_ID" \
+   '.programId = $program_id' \
+   "$APP_CONFIG_FILE" > "$TEMP_FILE"
+mv "$TEMP_FILE" "$APP_CONFIG_FILE"
