@@ -6,4 +6,3 @@ source dev-scripts/environments/anchor-version.sh install
 source dev-scripts/environments/remove-renec-cli.sh
 
 set -x
-

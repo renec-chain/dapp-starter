@@ -1,0 +1,1 @@
+solana program deploy target/deploy/dapp_starter.so --keypair .wallets/id.json --url $CLUSTER_URL

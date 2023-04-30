@@ -11,11 +11,14 @@
 #   $ echo "$cli_version"
 #
 
+echo "CLI VERSION: $CLI_VERSION"
+
 if [[ -n $CLI_VERSION ]]; then
   cli_version="$CLI_VERSION"
 else
   cli_version=1.14.6
 fi
+
 
 export cli_version="$cli_version"
 export PATH="$HOME"/.local/share/solana/install/active_release/bin:"$PATH"
