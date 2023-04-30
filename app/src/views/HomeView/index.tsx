@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { FC } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
 import styles from "./index.module.css";
 import { DappStarterView } from "views";
@@ -24,7 +23,7 @@ export const HomeView: FC = ({}) => {
                 </h1>
                 <p className="mb-5">
                   This scaffold includes awesome tools for rapid development and
-                  deploy dapps to Solana: Next.JS, TypeScript, TailwindCSS,
+                  deploy dapps to Renec: Next.JS, TypeScript, TailwindCSS,
                   Daisy UI.
                 </p>
                 <p className="mb-5">
@@ -38,7 +37,7 @@ export const HomeView: FC = ({}) => {
           </div>
 
           <div className="max-w-4xl mx-auto">
-            <h1 className="mb-5 pb-8 text-5xl">Templates:</h1>
+           
             <ul className="text-left leading-10">
             
              <DappStarterView />

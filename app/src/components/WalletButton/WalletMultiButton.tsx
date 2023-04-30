@@ -5,6 +5,8 @@ import type { ButtonProps } from '../Button'
 import { Button } from '../Button'
 import { WalletConnectButton } from './WalletConnectButton'
 import { WalletIcon } from './WalletIcon'
+import('@solana/wallet-adapter-react-ui/styles.css' as any) ;
+
 
 export const WalletMultiButton: FC<ButtonProps> = ({ children, ...props }) => {
   const { publicKey, wallet, disconnect } = useWallet()

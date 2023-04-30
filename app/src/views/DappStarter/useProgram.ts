@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Connection, PublicKey } from "@solana/web3.js";
 import * as anchor from "@project-serum/anchor";
 
-import idl from "artifacts/dapp-starter.json";
-import { DappStarter } from "artifacts/dapp-starter";
+import idl from "artifacts/dapp_starter.json";
+import { DappStarter } from "artifacts/dapp_starter";
 
 const SOLANA_TWITTER_PROGRAM = "ChK6NFUxhKSvKA1dM3x4jeriFpyk2FXjDYyxs8FNFm4w";
 const programID = new PublicKey(SOLANA_TWITTER_PROGRAM);

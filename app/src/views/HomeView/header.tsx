@@ -52,7 +52,7 @@ const Header = () => {
           >
             <Stack direction="row" justifyContent="start" alignItems="center">
               <Stack>
-                <Image src="/logo.svg" alt="Dapp-starter" width="176" height="32" />
+                <Image src="/logo.png" alt="Dapp Starter" width="50" height="50" />
               </Stack>
               <Stack className="ml-4 sm:ml-16">
                 <Link color="inherit" href={supportLink} target="_blank" rel="noreferrer" className="text-base font-normal">

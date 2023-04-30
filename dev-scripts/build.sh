@@ -26,3 +26,7 @@ echo "updated file: $(grep -E 'declare_id!\("[A-Za-z0-9]{44}"\);' "$FILE_PATH")"
 
 # Build the program 
 anchor build 
+
+# Copy the artifacts in to app
+cp target/idl/dapp_starter.json app/src/artifacts
+cp target/types/dapp_starter.ts app/src/artifacts
