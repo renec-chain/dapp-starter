@@ -1,7 +1,5 @@
 import * as anchor from "@project-serum/anchor";
-import bs58 from "bs58";
-
-import { DappStarter } from "artifacts/dapp-starter";
+import { DappStarter } from "artifacts/dapp_starter";
 
 export const getCounter = async (
   program: anchor.Program<DappStarter>,
