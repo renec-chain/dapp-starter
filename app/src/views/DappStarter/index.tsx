@@ -45,6 +45,8 @@ export const DappStarterView: FC = ({}) => {
           {isAirDropped ? <div className="opacity-50">Sent!</div> : null}
         </div>
 
+        <h1 className="mb-5 pb-8 text-5xl">Counter</h1>
+
         <div>
           {!wallet ? (
             <h1> Please connect wallet to view the counter screen</h1>
@@ -148,6 +150,18 @@ const DappStarterScreen = () => {
             </p>
           )}
         </div>
+
+        {configPubkey && (
+          <div>    <button
+          className="btn btn-primary normal-case btn-xs"
+          onClick={handleClickInitialize}
+        >
+          Reset
+        </button></div>
+
+         
+          )}
+        
       </div>
     </div>
   );
