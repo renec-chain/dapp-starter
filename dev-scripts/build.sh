@@ -12,6 +12,8 @@ if [ ! -f "$FILE_PATH" ]; then
     exit 1
 fi
 
+echo $PROGRAM_ID
+
 # Replace the existing declare_id! line with the new PROGRAM_ID
 TEMP_FILE=$(mktemp)
 awk -v program_id="$PROGRAM_ID" \
@@ -31,10 +33,16 @@ anchor build
 cp target/idl/dapp_starter.json app/src/artifacts
 cp target/types/dapp_starter.ts app/src/artifacts
 
+
 APP_CONFIG_FILE="app/src/artifacts/config.json"
 # Update the PROGRAM_ID in the config.json file
 TEMP_FILE=$(mktemp)
-jq --arg program_id "$PROGRAM_ID" \
-   '.programId = $program_id' \
-   "$APP_CONFIG_FILE" > "$TEMP_FILE"
+
+# Replace the existing programId value with the new PROGRAM_ID
+awk -v program_id="$PROGRAM_ID" \
+  'BEGIN {FS=OFS="\""} \
+  /"programId":/ {$4=program_id} \
+  {print}' "$APP_CONFIG_FILE" > "$TEMP_FILE"
+
+# Replace the original config file with the modified one
 mv "$TEMP_FILE" "$APP_CONFIG_FILE"
