@@ -5,7 +5,6 @@ This repo provides a starting point for building a dapp on the `renec` blockchai
 ## Prerequisite
 
 - cargo / rust
-- install [jq](https://stedolan.github.io/jq/download/)
 
 ## Program Scripts
 
