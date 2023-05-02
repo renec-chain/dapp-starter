@@ -21,7 +21,6 @@ fi
 
 
 export cli_version="$cli_version"
-export PATH="$HOME"/.local/share/solana/install/active_release/bin:"$PATH"
 
 if [[ -n $1 ]]; then
   case $1 in

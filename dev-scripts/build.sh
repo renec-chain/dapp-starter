@@ -12,6 +12,8 @@ if [ ! -f "$FILE_PATH" ]; then
     exit 1
 fi
 
+echo $PROGRAM_ID
+
 # Replace the existing declare_id! line with the new PROGRAM_ID
 TEMP_FILE=$(mktemp)
 awk -v program_id="$PROGRAM_ID" \

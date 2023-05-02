@@ -5,6 +5,7 @@ This repo provides a starting point for building a dapp on the `renec` blockchai
 ## Prerequisite
 
 - cargo / rust
+- install [jq](https://stedolan.github.io/jq/download/)
 
 ## Program Scripts
 
@@ -94,12 +95,15 @@ This command deploy the program, under `.wallets/id.json` authority. The program
 
 ### Presequisites
 
-- Having [next-js-setup](https://nextjs.org/docs/getting-started)
+- [Node.js 16.8.0](https://nodejs.org/en) or newer
 - `build and deploy` the program to the `renec testnet`. Make sure that you've run `make build` and `CLUSTER=testnet make deploy` before running the frontend.
 
 ### Build and run
 
 ```bash
 cd app
+```
+
+```bash
 yarn && yarn dev
 ```

@@ -33,13 +33,13 @@ export const DappStarterView: FC = ({}) => {
       <div className={styles.container}>
        
         <div className="flex mb-16">
-          <div className="mr-4">Need some SOL on test wallet?</div>
+          <div className="mr-4">Need some RENEC on test wallet?</div>
           <div className="mr-4">
             <button
               className="btn btn-primary normal-case btn-xs"
               onClick={airdropToWallet}
             >
-              Airdrop 1 SOL
+              Airdrop 1 RENEC
             </button>
           </div>
           {isAirDropped ? <div className="opacity-50">Sent!</div> : null}

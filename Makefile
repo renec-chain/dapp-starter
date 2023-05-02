@@ -3,6 +3,7 @@
 export RENEC_TESTNET_URL:= https://api-testnet.renec.foundation:8899/
 export RENEC_MAINNET_URL:= https://api-mainnet-beta.renec.foundation:8899/
 export RENEC_LOCALNET_URL:= http://127.0.0.1:8899
+export PATH:=$(HOME)/.local/share/solana/install/active_release/bin:$(PATH)
 
 CLUSTER ?= testnet
 
