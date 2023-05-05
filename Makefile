@@ -27,6 +27,9 @@ localnet:
 gen-wallet: install-deps
 	@./dev-scripts/gen-wallet.sh "$(name)"
 
+import-wallet: install-deps
+	./dev-scripts/import-wallet.sh "$(name)"
+
 faucet: 
 	@$(MAKE) install-deps CLI_VERSION=$(CLI_VERSION)
 	@./dev-scripts/faucet.sh --name "$(name)" $(amount)

@@ -43,21 +43,25 @@ CLUSTER=testnet make localnet
 
 ### Setup wallets
 
-- To gen new wallets, run:
+- To gen a new wallet, run:
 
 ```bash
 make gen-wallet name=<wallet-name>
 ```
 
-If not passing `name`, default name of the wallet will be `id`. The wallets' screte keys will be stored in `./wallets` folder.
+If not passing `name`, the default name of the wallet will be `id`. The wallets' screte keys will be stored in `./wallets` folder.
+
+- To import an existing wallet, run:
+
+```bash
+make import-wallet name=<wallet-name>
+```
 
 - To request faucet token in `testnet` or `localnet`, run:
 
 ```bash
-make faucet amount=3  name="kien"
+make faucet amount=3  name="<wallet-name>
 ```
-
-If not passing `name`, default name of the wallet will be `id`.
 
 ### Build && Deploy
 
@@ -75,11 +79,11 @@ For FE interaction, this script copies the `dapp_starter.json`, `dapp_starter.ts
 
 - To deploy
 
-```
-CLUSTER=mainnet make deploy
+```bash
+CLUSTER=mainnet make deploy name=<wallet-name>
 ```
 
-This command deploy the program, under `.wallets/id.json` authority. The program will be deploy to `CLUSTER` env, which could either be `localnet`, `mainnet` or `testnet`
+This command deploy the program, under `.wallets/<wallet-name>.json` authority. The program will be deploy to `CLUSTER` env, which could either be `localnet`, `mainnet` or `testnet`
 
 ## Frontend
 
