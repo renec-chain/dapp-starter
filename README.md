@@ -18,14 +18,15 @@ make install-deps
 
 This will install the `anchor` and `solana` cli if needed. Default `solana 1.14.6`, `anchor 0.25.0`
 
-To use different version that compatible with `renec cluster`, set the `CLUSTER` and `ANCHOR_VERSION` environment variables and run the command
-vd:
+To use different version compatible with `renec cluster`, set the `CLUSTER` and `ANCHOR_VERSION` environment variables and run the command
+</br>
+For example:
 
 ```bash
 CLUSTER=mainnet ANCHOR_VERSION=0.20.1 make install-deps
 ```
 
-`CLUSTER` can either be `mainnet`, `testnet` or `localnet`. By setting cluster correctly, the installer will set the correct `cli` for interaction
+`CLUSTER` can either be `mainnet`, `testnet` or `localnet`. By setting the cluster correctly, the installer will set the corresponding `cli` for program's interaction.
 
 - To run a `localnet` that has the same version as `renec-mainnet`, run;
 
@@ -43,21 +44,25 @@ CLUSTER=testnet make localnet
 
 ### Setup wallets
 
-- To gen new wallets, run:
+- To gen a new wallet, run:
 
 ```bash
-make gen-wallet name=<wallet-name>
+make gen-wallet name="<wallet-name>"
 ```
 
-If not passing `name`, default name of the wallet will be `id`. The wallets' screte keys will be stored in `./wallets` folder.
+If not passing `name` parameter, the default name of the wallet will be `id`. The wallets' screte keys will be stored in `./wallets` folder.
+
+- To import an existing wallet, run:
+
+```bash
+make import-wallet name="<wallet-name>"
+```
 
 - To request faucet token in `testnet` or `localnet`, run:
 
 ```bash
-make faucet amount=3  name="kien"
+make faucet amount=1  name="<wallet-name>"
 ```
-
-If not passing `name`, default name of the wallet will be `id`.
 
 ### Build && Deploy
 
@@ -75,11 +80,11 @@ For FE interaction, this script copies the `dapp_starter.json`, `dapp_starter.ts
 
 - To deploy
 
-```
-CLUSTER=mainnet make deploy
+```bash
+CLUSTER=mainnet make deploy name="<wallet-name>"
 ```
 
-This command deploy the program, under `.wallets/id.json` authority. The program will be deploy to `CLUSTER` env, which could either be `localnet`, `mainnet` or `testnet`
+This command deploy the program, under `.wallets/<wallet-name>.json` authority. The program will be deploy to `CLUSTER` env, which could either be `localnet`, `mainnet` or `testnet`
 
 ## Frontend
 
@@ -89,7 +94,7 @@ This command deploy the program, under `.wallets/id.json` authority. The program
 - The FE uses [daemon-wallet](https://renec.foundation/en/support/how-to-create-a-new-demon-wallet) to connect with `renec-blockchain`.
   ![daemonWallet](public/connect_wallet.png)
 
-- The provided program and the FE provides a simple `counter` program, which allows user to `initialize a counter`, and `increment` the count in that `counter`.
+- The provided program and the FE provide a simple `counter` program, which allows users to `initialize a counter`, and `increment` the count in that `counter`.
   ![counter](public/counter.png)
 
 ### Presequisites

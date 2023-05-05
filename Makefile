@@ -27,15 +27,18 @@ localnet:
 gen-wallet: install-deps
 	@./dev-scripts/gen-wallet.sh "$(name)"
 
+import-wallet: install-deps
+	./dev-scripts/import-wallet.sh "$(name)"
+
 faucet: 
 	@$(MAKE) install-deps CLI_VERSION=$(CLI_VERSION)
 	@./dev-scripts/faucet.sh --name "$(name)" $(amount)
 
 build: 
 	@$(MAKE) install-deps CLI_VERSION=1.14.6 ANCHOR_VERSION=0.25.0
-	@./dev-scripts/build.sh
+	@./dev-scripts/build.sh 
 
 deploy: set-cluster-url
 	@$(MAKE) install-deps CLI_VERSION=$(CLI_VERSION)
-	@./dev-scripts/deploy.sh 
+	@./dev-scripts/deploy.sh "$(name)"
 	
