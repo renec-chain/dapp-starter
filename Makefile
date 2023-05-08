@@ -1,3 +1,4 @@
+SHELL := /bin/bash
 .PHONY: install-deps gen-wallet set-cluster-url show-network-config
 
 export RENEC_TESTNET_URL:= https://api-testnet.renec.foundation:8899/
