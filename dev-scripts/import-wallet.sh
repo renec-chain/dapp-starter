@@ -1,9 +1,8 @@
 #!/bin/bash
 
-# Check if the folder exists, if not, create it
-FOLDER=".wallets"
-if [ ! -d "$FOLDER" ]; then
-  mkdir -p "$FOLDER"
+# Check if the WALLET_PATH exists, if not, create it
+if [ ! -d "$WALLET_PATH" ]; then
+  mkdir -p "$WALLET_PATH"
 fi
 
 if [[ -n $1 ]]; then
@@ -12,7 +11,7 @@ else
     WALLET_NAME="id"
 fi
 
-KEYPATH="$FOLDER/$WALLET_NAME.json"
+KEYPATH="$WALLET_PATH/$WALLET_NAME.json"
 
 # Import a new Solana wallet
 solana-keygen recover 'prompt:?key=0/0' --outfile $KEYPATH

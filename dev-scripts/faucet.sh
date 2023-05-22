@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Check if the folder exists, if not, create it
-FOLDER=".wallets"
-
 AMOUNT=""
 
 # Parse the arguments
@@ -30,7 +27,7 @@ if [[ -z $WALLET_NAME ]]; then
 fi
 
 # Get wallet
-WALLET_ADDRESS=$(solana address -k "$FOLDER/$WALLET_NAME.json")
+WALLET_ADDRESS=$(solana address -k "$WALLET_PATH/$WALLET_NAME.json")
 
 
 echo "Fauceting wallet on $CLUSTER_URL..."
