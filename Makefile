@@ -9,7 +9,7 @@ export PATH:=$(HOME)/.local/share/solana/install/active_release/bin:$(PATH)
 CLUSTER ?= testnet
 
 export WALLET_PATH:=.wallets
-
+export PROGRAM_NAME?=dapp-starter
 
 export CLUSTER_URL := $(if $(filter testnet,$(CLUSTER)),$(RENEC_TESTNET_URL),\
                  $(if $(filter mainnet,$(CLUSTER)),$(RENEC_MAINNET_URL),\
