@@ -4,4 +4,5 @@ else
     WALLET_NAME="id"
 fi
 
-solana program deploy target/deploy/dapp_starter.so --keypair .wallets/$WALLET_NAME.json --url $CLUSTER_URL
+PROGRAM_NAME_UNDERSCORE=${PROGRAM_NAME//-/_}
+solana program deploy target/deploy/$PROGRAM_NAME_UNDERSCORE.so --keypair .wallets/$WALLET_NAME.json --url $CLUSTER_URL
