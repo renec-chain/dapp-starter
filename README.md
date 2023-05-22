@@ -2,6 +2,13 @@
 
 This repo provides a starting point for building a dapp on the `renec` blockchain.
 
+## Project Structure
+
+- `programs`: This folder contains the logic code for the program. It uses `anchor` framework to build the program.
+- `app`: This folder contains FE code for the dapp. It uses `next-js` and `typescript` to build the FE.
+- `dev-scripts`: This folder contains scripts to build and deploy the program, and to setup the FE using `bash-scripts`. Support running on `Unix` environemnt.
+- `tests`: This folder contains tests for the `program`
+
 ## Prerequisite
 
 - cargo / rust

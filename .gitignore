@@ -3,6 +3,6 @@ node_modules/
 test-ledger/
 
 .wallets
-
+.anchor
 
 app/build
