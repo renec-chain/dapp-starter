@@ -1,8 +1,7 @@
 target/
 node_modules/
 test-ledger/
+.anchor
 
 .wallets
-
-
 app/build
