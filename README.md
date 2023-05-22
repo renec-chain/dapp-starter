@@ -13,6 +13,14 @@ This repo provides a starting point for building a dapp on the `renec` blockchai
 
 - cargo / rust
 
+## Program test
+
+Run:
+
+```bash
+anchor test
+```
+
 ## Program Scripts
 
 ### Setup environemnts
