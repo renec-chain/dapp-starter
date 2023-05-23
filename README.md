@@ -12,6 +12,18 @@ This repo provides a starting point for building a dapp on the `renec` blockchai
 ## Prerequisite
 
 - cargo / rust
+- For Linux User:
+
+```bash
+sudo apt-get update && sudo apt-get upgrade && sudo apt-get install -y pkg-config build-essential libudev-dev
+sudo apt install libssl-dev
+```
+
+- For Mac User:
+
+```bash
+brew install openssl
+```
 
 ## Program test
 
