@@ -1,4 +1,6 @@
 
+#!/bin/bash
+
 # gen new program id
 anchor keys list
 

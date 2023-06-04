@@ -23,7 +23,8 @@ done
 
 # Check if name is empty
 if [[ -z $WALLET_NAME ]]; then
-  WALLET_NAME="id"
+  echo "Please provide a wallet name"
+  exit 1
 fi
 
 # Get wallet

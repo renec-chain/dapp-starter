@@ -2,10 +2,10 @@
 # This file maintains the solana versions for use by CI.
 #
 # Obtain the environment variables without any automatic updating:
-#   $ source ci/solana-version.sh
+#   $ source dev-scripts/environments/solana-version.sh
 #
 # Obtain the environment variables and install update:
-#   $ source ci/solana-version.sh install
+#   $ source dev-scripts/environments/solana-version.sh install
 
 # Then to access the solana version:
 #   $ echo "$cli_version"
