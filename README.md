@@ -1,42 +1,47 @@
-# dapp-starter
+# Dapp-starter
 
 This repo provides a starting point for building a dapp on the `renec` blockchain.
 
-## Project Structure
+# Overview
+
+  - [Project Structure](#project-structure)
+  - [Prerequiresites](#prerequisite)
+  - [Dependencies](#dependencies)
+     - [Installation](#installation)
+     - [Setup wallet](#setup-wallets)
+  - [How to use ?](#how-to-use-)
+     - [Rpc Endpoint](#rpc-endpoint)
+     - [Build & Deploy](#build--deploy)
+     - [FE & Dapp](#frontend)
+  - [Port Dapp from Solana](#port-dapp-from-solana)
+  - [Notes](#frontend)
+# Project Structure
 
 - `programs`: This folder contains the logic code for the program. It uses `anchor` framework to build the program.
 - `app`: This folder contains FE code for the dapp. It uses `next-js` and `typescript` to build the FE.
 - `dev-scripts`: This folder contains scripts to build and deploy the program, and to setup the FE using `bash-scripts`. Support running on `Unix` environemnt.
 - `tests`: This folder contains tests for the `program`
 
-## Prerequisite
+# Prerequisite
 
-- cargo / rust
-- For Linux User:
+- For Linux user:
 
 ```bash
-sudo apt-get update && sudo apt-get upgrade && sudo apt-get install -y pkg-config build-essential libudev-dev
-sudo apt install libssl-dev
+ sudo apt-get update && sudo apt-get upgrade && sudo apt-get install -y pkg-config build-essential libudev-dev
+ sudo apt install libssl-dev
 ```
 
-- For Mac User:
+- For Mac user:
 
 ```bash
 brew install openssl
 ```
 
-## Program test
-
-Run:
-
-```bash
-anchor test
-```
-
-## Program Scripts
-
-### Setup environemnts
-
+- For Window user
+  - TODO
+# Dependencies
+  
+  ## Installation
 - To setup program dependencies, run:
 
 ```bash
@@ -69,7 +74,7 @@ CLUSTER=testnet make localnet
 
 `CLUSTER` variables can be either `mainnet`, `testnet` or `localnet`, which corresponding to `RENEC cluster url`. Default `CLUSTER` is `testnet`.
 
-### Setup wallets
+  ## Setup wallets
 
 - To gen a new wallet, run:
 
@@ -91,27 +96,38 @@ make import-wallet name="<wallet-name>"
 make faucet amount=1  name="<wallet-name>"
 ```
 
-### Build && Deploy
+# How to use ?
 
-- To build program:
+## Rpc Endpoint
+  - Several providers offer free RPC access to the public Renec clusters. These services are good for real-world testing, early demos, and small, private beta programs. Keep in mind that you get exactly what you are paying for. Free RPC typically do not autoscale, are rate-limited, offer no SLA, and are not afraid to ban abusers. When an application is ready to be opened to the public, it is time to invest in private RPC access.
+  - Some free RPC providers:
+    - Mainnet
+        - https://api-mainnet-beta.renec.foundation:8899/
+    - Testnet
+        - https://api-testnet.renec.foundation:8899/
+    - Devnet
+        - http://18.205.245.50:8888
+## Build & Deploy
 
+- Build program:
 ```bash
 make build
 ```
 
-This command will generate the `program keypair` if needed, and replace it inside `programs/dapp-starter/src/lib.rs` file.
-Then it will build the program and generate `program so` file.
+Notes:
 
-</br>
-For FE interaction, this script copies the `dapp_starter.json`, `dapp_starter.ts` and replace `program_id` into the `config.json` file in `app/src/artifacts` folder.
+  - This command will generate the `program keypair` if needed, and replace it inside `programs/dapp-starter/src/lib.rs` file.
+    Then it will build the program and generate `program so` file.
 
-- To deploy
+  - For FE interaction, this script copies the `dapp_starter.json`, `dapp_starter.ts` and replace `program_id` into the `config.json` file in `app/src/artifacts` folder.
 
+- Deploy program:
 ```bash
 CLUSTER=mainnet make deploy name="<wallet-name>"
 ```
+Notes:
 
-This command deploy the program, under `.wallets/<wallet-name>.json` authority. The program will be deploy to `CLUSTER` env, which could either be `localnet`, `mainnet` or `testnet`
+  This command deploy the program, under `.wallets/<wallet-name>.json` authority. The program will be deploy to `CLUSTER` env, which could either be `localnet`, `mainnet` or `testnet`
 
 ## Frontend
 
@@ -138,3 +154,7 @@ cd app
 ```bash
 yarn && yarn dev
 ```
+
+# Port Dapp from Solana
+  - TODO
+# Notes
