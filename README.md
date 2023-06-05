@@ -105,8 +105,6 @@ make faucet amount=1  name="<wallet-name>"
         - https://api-mainnet-beta.renec.foundation:8899/
     - Testnet
         - https://api-testnet.renec.foundation:8899/
-    - Devnet
-        - http://18.205.245.50:8888
 ## Build & Deploy
 
 - Build program:
