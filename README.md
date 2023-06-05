@@ -99,7 +99,6 @@ make faucet amount=1  name="<wallet-name>"
 # How to use ?
 
 ## Rpc Endpoint
-  - Several providers offer free RPC access to the public Renec clusters. These services are good for real-world testing, early demos, and small, private beta programs. Keep in mind that you get exactly what you are paying for. Free RPC typically do not autoscale, are rate-limited, offer no SLA, and are not afraid to ban abusers. When an application is ready to be opened to the public, it is time to invest in private RPC access.
   - Some free RPC providers:
     - Mainnet
         - https://api-mainnet-beta.renec.foundation:8899/
