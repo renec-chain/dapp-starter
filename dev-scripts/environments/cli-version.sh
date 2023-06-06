@@ -28,14 +28,13 @@ if [[ -n $1 ]]; then
     # Check if the installed solana version is the same as the desired version
     installed_version=$(solana --version 2>/dev/null | awk '{print $2}' || echo "")
     if [[ "$installed_version" == "$cli_version" ]]; then
-      echo "solana-version.sh: solana $cli_version is already installed, skipping download."
+      echo "cli-version.sh: renec $cli_version is already installed, skipping download."
     else
       sh -c "$(curl -sSfL https://release.solana.com/v$cli_version/install)"
-      solana --version
     fi
     ;;
   *)
-    echo "solana-version.sh: Note: ignoring unknown argument: $1" >&2
+    echo "renec-version.sh: Note: ignoring unknown argument: $1" >&2
     ;;
   esac
 fi

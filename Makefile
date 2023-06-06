@@ -39,7 +39,7 @@ faucet:
 	@./dev-scripts/faucet.sh --name "$(name)" $(amount)
 
 build: 
-	@$(MAKE) install-deps CLI_VERSION=1.14.6 ANCHOR_VERSION=0.25.0
+	@$(MAKE) install-deps CLI_VERSION=1.14.6 ANCHOR_VERSION=0.25.0		
 	@./dev-scripts/build.sh 
 
 deploy: set-cluster-url
