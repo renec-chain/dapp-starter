@@ -3,10 +3,10 @@
 # This file maintains the anchor versions 
 #
 # Obtain the environment variables without any automatic updating:
-#   $ source ci/anchor-version.sh
+#   $ source dev-scripts/environments/anchor-version.sh
 #
 # Obtain the environment variables and install/update anchor:
-#   $ source ci/anchor-version.sh install
+#   $ source dev-scripts/environments/anchor-version.sh install
 
 # Then to access the anchor version:
 #   $ echo "$anchor_version"

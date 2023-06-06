@@ -8,7 +8,8 @@ fi
 if [[ -n $1 ]]; then
     WALLET_NAME=$1
 else
-    WALLET_NAME="id"
+    echo "Please provide a wallet name"
+    exit 1
 fi
 
 KEYPATH="$WALLET_PATH/$WALLET_NAME.json"

@@ -4,17 +4,18 @@ This repo provides a starting point for building a dapp on the `renec` blockchai
 
 # Overview
 
-  - [Project Structure](#project-structure)
-  - [Prerequiresites](#prerequisite)
-  - [Dependencies](#dependencies)
-     - [Installation](#installation)
-     - [Setup wallet](#setup-wallets)
-  - [How to use ?](#how-to-use-)
-     - [Rpc Endpoint](#rpc-endpoint)
-     - [Build & Deploy](#build--deploy)
-     - [FE & Dapp](#frontend)
-  - [Port Dapp from Solana](#port-dapp-from-solana)
-  - [Notes](#frontend)
+- [Project Structure](#project-structure)
+- [Prerequiresites](#prerequisite)
+- [Dependencies](#dependencies)
+  - [Installation](#installation)
+  - [Setup wallet](#setup-wallets)
+- [How to use ?](#how-to-use-)
+  - [Rpc Endpoint](#rpc-endpoint)
+  - [Build & Deploy](#build--deploy)
+  - [FE & Dapp](#frontend)
+- [Port Dapp from Solana](#port-dapp-from-solana)
+- [Notes](#frontend)
+
 # Project Structure
 
 - `programs`: This folder contains the logic code for the program. It uses `anchor` framework to build the program.
@@ -37,11 +38,18 @@ This repo provides a starting point for building a dapp on the `renec` blockchai
 brew install openssl
 ```
 
-- For Window user
-  - TODO
-# Dependencies
-  
-  ## Installation
+## Program test
+
+Run:
+
+```bash
+yarn && anchor test
+```
+
+## Program Scripts
+
+### Setup environemnts
+
 - To setup program dependencies, run:
 
 ```bash
@@ -66,15 +74,7 @@ CLUSTER=mainnet ANCHOR_VERSION=0.20.1 make install-deps
 make localnet
 ```
 
-- To run a `localnet` that has the same version as `renec-testnet`, run;
-
-```bash
-CLUSTER=testnet make localnet
-```
-
-`CLUSTER` variables can be either `mainnet`, `testnet` or `localnet`, which corresponding to `RENEC cluster url`. Default `CLUSTER` is `testnet`.
-
-  ## Setup wallets
+### Setup wallets
 
 - To gen a new wallet, run:
 
@@ -82,7 +82,7 @@ CLUSTER=testnet make localnet
 make gen-wallet name="<wallet-name>"
 ```
 
-If not passing `name` parameter, the default name of the wallet will be `id`. The wallets' screte keys will be stored in `./wallets` folder.
+The wallets' screte keys will be stored in `./wallets` folder.
 
 - To import an existing wallet, run:
 
@@ -99,32 +99,37 @@ make faucet amount=1  name="<wallet-name>"
 # How to use ?
 
 ## Rpc Endpoint
-  - Some free RPC providers:
-    - Mainnet
-        - https://api-mainnet-beta.renec.foundation:8899/
-    - Testnet
-        - https://api-testnet.renec.foundation:8899/
+
+- Some free RPC providers:
+  - Mainnet
+    - https://api-mainnet-beta.renec.foundation:8899/
+  - Testnet
+    - https://api-testnet.renec.foundation:8899/
+
 ## Build & Deploy
 
 - Build program:
+
 ```bash
 make build
 ```
 
 Notes:
 
-  - This command will generate the `program keypair` if needed, and replace it inside `programs/dapp-starter/src/lib.rs` file.
-    Then it will build the program and generate `program so` file.
+- This command will generate the `program keypair` if needed, and replace it inside `programs/dapp-starter/src/lib.rs` file.
+  Then it will build the program and generate `program so` file.
 
-  - For FE interaction, this script copies the `dapp_starter.json`, `dapp_starter.ts` and replace `program_id` into the `config.json` file in `app/src/artifacts` folder.
+- For FE interaction, this script copies the `dapp_starter.json`, `dapp_starter.ts` and replace `program_id` into the `config.json` file in `app/src/artifacts` folder.
 
 - Deploy program:
+
 ```bash
 CLUSTER=mainnet make deploy name="<wallet-name>"
 ```
+
 Notes:
 
-  This command deploy the program, under `.wallets/<wallet-name>.json` authority. The program will be deploy to `CLUSTER` env, which could either be `localnet`, `mainnet` or `testnet`
+This command deploy the program, under `.wallets/<wallet-name>.json` authority. The program will be deploy to `CLUSTER` env, which could either be `localnet`, `mainnet` or `testnet`
 
 ## Frontend
 
@@ -153,5 +158,7 @@ yarn && yarn dev
 ```
 
 # Port Dapp from Solana
-  - TODO
+
+- TODO
+
 # Notes

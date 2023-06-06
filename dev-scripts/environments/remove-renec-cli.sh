@@ -9,11 +9,11 @@ echo $path_to_remove
 # Create an empty variable to store the new PATH
 new_path=""
 
-# Remove executable path
-for segment in $PATH; do
-  # Check if the segment is not the one to remove
-  if [[ "$segment" != "$path_to_remove" ]]; then
-    new_path="${new_path:+$new_path:}$segment"
+# Remove executable from $PATH
+IFS=':' read -ra path <<< "$PATH"
+for p in "${path[@]}"; do
+  if [[ "$p" != "$path_to_remove" ]]; then
+    new_path+="$p:"
   fi
 done
 
