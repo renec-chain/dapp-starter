@@ -1,0 +1,19 @@
+---
+to: tests/<%=name%>.ts
+---
+import * as anchor from "@project-serum/anchor";
+import { Program } from "@project-serum/anchor";
+import { <%= h.changeCase.pascalCase(name)%> } from "../target/types/<%= h.changeCase.snakeCase(name)%>";
+
+describe("dapp-starter", () => {
+  // Configure the client to use the local cluster.
+  anchor.setProvider(anchor.AnchorProvider.env());
+
+  const program = anchor.workspace.<%= h.changeCase.pascalCase(name)%> as Program<<%= h.changeCase.pascalCase(name)%>>;
+
+  it("Is initialized!", async () => {
+    // Add your test here.
+    const tx = await program.methods.initialize().rpc();
+    console.log("Your transaction signature", tx);
+  });
+});
