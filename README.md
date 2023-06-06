@@ -38,14 +38,6 @@ This repo provides a starting point for building a dapp on the `renec` blockchai
 brew install openssl
 ```
 
-## Program test
-
-Run:
-
-```bash
-yarn && anchor test
-```
-
 ## Program Scripts
 
 ### Setup environemnts
@@ -158,7 +150,16 @@ yarn && yarn dev
 ```
 
 # Port Dapp from Solana
-
-- TODO
+ To reduce the time to convert and rebuild programs from solana. We have supported scripts to quickly re-deploy programs to renc from previously built programs.
+ 
+ Deploy on Renec-Testnet
+ ```bash
+    CLUSTER=testnet make port-dapp program_file_path=path/to/program_file.so keypair_path=path/to/keypair
+ ```
+ 
+ Deploy on Renec-Mainnet
+ ```bash
+    CLUSTER=mainnet make port-dapp program_file_path=path/to/program_file.so keypair_path=path/to/keypair
+ ```
 
 # Notes
