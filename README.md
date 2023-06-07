@@ -154,12 +154,12 @@ yarn && yarn dev
  
  Deploy on Renec-Testnet
  ```bash
-    CLUSTER=testnet make port-dapp program_file_path=path/to/program_file.so keypair_path=path/to/keypair
+    CLUSTER=testnet make port-dapp program_file_path=path/to/program_file.so keypair_path=path/to/wallet.json program_id_keypair=path/tp/program-id/keypair.json
  ```
  
  Deploy on Renec-Mainnet
  ```bash
-    CLUSTER=mainnet make port-dapp program_file_path=path/to/program_file.so keypair_path=path/to/keypair
+    CLUSTER=mainnet make port-dapp program_file_path=path/to/program_file.so keypair_path=path/to/wallet.json progran_id_keypair=path/tp/program-id/keypair.json
  ```
 
 # Notes
