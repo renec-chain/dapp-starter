@@ -152,6 +152,10 @@ yarn && yarn dev
 # Port Dapp from Solana
  To reduce the time to convert and rebuild programs from solana. We have supported scripts to quickly re-deploy programs to renc from previously built programs.
  
+ Args bash script:
+   - `program_file_path`: Path to built program
+   - `keypair_path`: Path to keypair wallet use to deploy program 
+   - `program_id_keypair`: Path to executable program's keypair
  Deploy on Renec-Testnet
  ```bash
     CLUSTER=testnet make port-dapp program_file_path=path/to/program_file.so keypair_path=path/to/wallet.json program_id_keypair=path/tp/program-id/keypair.json
