@@ -48,5 +48,5 @@ deploy: set-cluster-url
 
 port-dapp: 
 	@$(MAKE) install-deps CLI_VERSION=$(CLI_VERSION)
-	@./dev-scripts/port-program.sh "$(program_file_path)" "$(keypair_path)"
+	@./dev-scripts/port-program.sh "$(program_file_path)" "$(keypair_path)" "$(program_id_keypair)"
 	
