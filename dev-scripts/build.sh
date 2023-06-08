@@ -38,22 +38,4 @@ if [[ "$PROGRAM_ID" != "$UPDATED_PROGRAM_ID" ]]; then
 fi
 
 # Build the program 
-anchor build 
-
-# Copy the artifacts into the app's artifacts folder
-cp target/idl/$PROGRAM_NAME_UNDERSCORE.json app/src/artifacts
-cp target/types/$PROGRAM_NAME_UNDERSCORE.ts app/src/artifacts
-
-
-APP_CONFIG_FILE="app/src/artifacts/config.json"
-# Update the PROGRAM_ID in the config.json file
-TEMP_FILE=$(mktemp)
-
-# Replace the existing programId value with the new PROGRAM_ID
-awk -v program_id="$PROGRAM_ID" \
-  'BEGIN {FS=OFS="\""} \
-  /"programId":/ {$4=program_id} \
-  {print}' "$APP_CONFIG_FILE" > "$TEMP_FILE"
-
-# Replace the original config file with the modified one
-mv "$TEMP_FILE" "$APP_CONFIG_FILE"
+anchor build

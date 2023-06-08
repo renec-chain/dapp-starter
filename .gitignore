@@ -4,4 +4,5 @@ test-ledger/
 .anchor
 
 .wallets
-app/build
+examples/app/build
+examples/app/node_modules
