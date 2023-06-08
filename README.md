@@ -126,9 +126,9 @@ brew install openssl
   This command deploy the program, under `.wallets/<wallet-name>.json` authority. The program will be deploy to `CLUSTER` env, which could either be `localnet`, `mainnet` or `testnet`
 
   ## Port Dapp from Solana
-   To reduce the time to convert and rebuild programs from solana. We have supported scripts to quickly re-deploy programs to renc from previously built programs.
+  - To reduce the time to convert and rebuild programs from solana. We have supported scripts to quickly re-deploy programs to renc from previously built programs.
 
-   Bash script params annotation:
+  - Bash script params annotation:
      - `program_file_path`: Path to the program file used to deploy on Solana
      - `keypair_path`: Path to the keypair used to deploy on Solana
      - `program_id_keypair`: Path to the program id keypair used to deploy on Solana
