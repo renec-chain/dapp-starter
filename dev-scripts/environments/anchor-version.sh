@@ -25,14 +25,19 @@ export PATH="$HOME"/.cargo/bin:"$PATH"
 if [[ -n $1 ]]; then
   case $1 in
   install)
-        # intstall avm if not installed 
-        if ! command -v avm &> /dev/null; then
+        # intstall avm if not installed
+        if [[ "$(uname)" == "MINGW"* ]] && ! anchor --version &> /dev/null ;then
+          cargo install --git https://github.com/coral-xyz/anchor --tag v$anchor_version anchor-cli --locked --force
+          anchor --version
+         # intstall avm if not installed
+        elif ! command -v avm &> /dev/null; then
             cargo install --git https://github.com/project-serum/anchor avm --locked 
             anchor --version
+            avm install $anchor_version
+            avm use $anchor_version
+        else
+          echo "Anchor version $anchor_version is installed"
         fi
-
-        avm install $anchor_version
-        avm use $anchor_version
     ;;
   *)
     echo "anchor-version.sh: Note: ignoring unknown argument: $1" >&2
