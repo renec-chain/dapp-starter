@@ -32,4 +32,3 @@
   ### Presequisites
 
   - [Node.js 16.8.0](https://nodejs.org/en) or newer
-  - `build and deploy` the program to the `renec testnet`. Make sure that you've run `make build` and `CLUSTER=testnet make deploy` before running the frontend.
