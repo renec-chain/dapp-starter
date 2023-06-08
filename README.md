@@ -14,9 +14,6 @@ This repo provides a starting point for building a dapp on the `renec` blockchai
   - [Generate new program](#generate-new-program)
   - [Build & Deploy](#build--deploy)
   - [Port Dapp from Solana](#port-dapp-from-solana)
-- [Example](#example)
-  - [Build & Deploy](#build--deploy-program)
-  - [Run Dapp](#build--deploy-program)
 - [Notes](#notes)
 
 # Project Structure
@@ -144,40 +141,4 @@ brew install openssl
    ```bash
       CLUSTER=mainnet make port-dapp program_file_path=path/to/program_file.so keypair_path=path/to/wallet.json progran_id_keypair=path/tp/program-id/keypair.json
    ```
-
-
-# Example
-  ## Build & Deploy Program
-  - Build program
-  
-  ```bash
-  cd examples && ./build
-  ```
-  - Deploy program
-  ```bash
-  ./deploy
-  ```
-  
-  Notes: Sometime, you need to allowing execute the script
-  ```sudo chmod +x script.sh```
-  
-  ## Run dapp
-  ```bash
-  cd app && yarn && yarn dev
-  ```
-  - The dapp is built by `next-js` and `typescript`. It used `@project-serum/anchor` to interact with the program.
-    </br>
-
-  - [Daemon-Wallet](https://renec.foundation/en/support/how-to-create-a-new-demon-wallet) has used to connect with `renec-blockchain`.
-  
-    ![daemonWallet](public/connect_wallet.png)
-
-  - The example `Counter` program, which allows users to `initialize a counter` and `increment` the count`.
-  
-    ![counter](public/counter.png)
-
-  ### Presequisites
-
-  - [Node.js 16.8.0](https://nodejs.org/en) or newer
-  - `build and deploy` the program to the `renec testnet`. Make sure that you've run `make build` and `CLUSTER=testnet make deploy` before running the frontend.
 # Notes
