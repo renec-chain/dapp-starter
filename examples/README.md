@@ -4,11 +4,11 @@
   - Build program
   
   ```bash
-  cd examples && ./build
+  cd examples && ./build.sh
   ```
   - Deploy program
   ```bash
-  ./deploy
+  ./deploy.sh
   ```
   
   Notes: Sometime, you need to allowing execute the script
