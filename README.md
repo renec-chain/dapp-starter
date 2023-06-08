@@ -38,6 +38,11 @@ This repo provides a starting point for building a dapp on the `renec` blockchai
 brew install openssl
 ```
 
+- For Windows user: must install make
+  - Install Chocolatey from here https://chocolatey.org/install
+  - Then run ```
+  choco install make``` from a fresh terminal.
+
 ## Program Scripts
 
 ### Setup environemnts
