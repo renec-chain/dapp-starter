@@ -29,6 +29,12 @@ if [[ -n $1 ]]; then
     installed_version=$(solana --version 2>/dev/null | awk '{print $2}' || echo "")
     if [[ "$installed_version" == "$cli_version" ]]; then
       echo "cli-version.sh: renec $cli_version is already installed, skipping download."
+    elif [[ "$(uname)" == "MINGW"* ]] ;then
+      install_dir="$HOME/.local/share/solana"
+      curl https://release.solana.com/v$cli_version/solana-install-init-x86_64-pc-windows-msvc.exe -o solana-install-init.exe
+      ./solana-install-init.exe v$cli_version
+
+      echo "Solana version $cli_version has been installed."
     else
       sh -c "$(curl -sSfL https://release.solana.com/v$cli_version/install)"
     fi
