@@ -1,0 +1,15 @@
+---
+to: Anchor.toml
+---
+[programs.localnet]
+<%= h.changeCase.snakeCase(name)%> = "ChK6NFUxhKSvKA1dM3x4jeriFpyk2FXjDYyxs8FNFm4w"
+
+[registry]
+url = "https://anchor.projectserum.com"
+
+[provider]
+cluster = "localnet"
+wallet = "~/.config/renec/id.json"
+
+[scripts]
+test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"

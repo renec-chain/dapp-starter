@@ -4,5 +4,7 @@ test-ledger/
 .anchor
 
 .wallets
+examples/app/build
+examples/app/node_modules
 app/build
 solana-install-init.exe

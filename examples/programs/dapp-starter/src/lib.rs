@@ -1,15 +1,15 @@
 use anchor_lang::prelude::*;
 
-declare_id!("F7TUZAw5mht6iBW9wyCrddrn5appF9D5ngfvBUeznAEu");
+declare_id!("ErCnpxub8XL8SGjdUSZLgs5FuRN57WD8KfUgCaboeuPW");
 
 #[program]
 pub mod dapp_starter {
     use super::*;
-    pub fn initialize(_ctx: Context<Initialize>) -> ProgramResult {
+    pub fn initialize(_ctx: Context<Initialize>) -> Result<()> {
         Ok(())
     }
 
-    pub fn increment(ctx: Context<Increment>) -> ProgramResult {
+    pub fn increment(ctx: Context<Increment>) -> Result<()> {
         let config = &mut ctx.accounts.config;
         config.count += 1;
         Ok(())
@@ -17,12 +17,8 @@ pub mod dapp_starter {
 }
 
 #[derive(Accounts)]
-pub struct Initialize<'info>{
-    #[account(
-        init, 
-        payer = deployer, 
-        space = 8 + 8,
-    )]
+pub struct Initialize<'info> {
+    #[account(init, payer = deployer, space = 8 + 8)]
     pub config: Account<'info, Counter>,
 
     #[account(mut)]
@@ -32,7 +28,7 @@ pub struct Initialize<'info>{
 }
 
 #[derive(Accounts)]
-pub struct Increment<'info>{
+pub struct Increment<'info> {
     #[account(
         mut
     )]

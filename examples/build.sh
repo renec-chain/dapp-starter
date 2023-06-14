@@ -1,14 +1,12 @@
 
 #!/bin/bash
-
 # gen new program id
 anchor keys list
 
-PROGRAM_NAME_UNDERSCORE=${PROGRAM_NAME//-/_}
-PROGRAM_ID=$(solana address -k target/deploy/$PROGRAM_NAME_UNDERSCORE-keypair.json)
+PROGRAM_ID=$(solana address -k target/deploy/dapp_starter-keypair.json)
 
 # Set the file path
-FILE_PATH="programs/$PROGRAM_NAME/src/lib.rs"
+FILE_PATH="programs/dapp-starter/src/lib.rs"
 
 # Make sure the file exists
 if [ ! -f "$FILE_PATH" ]; then
@@ -38,4 +36,22 @@ if [[ "$PROGRAM_ID" != "$UPDATED_PROGRAM_ID" ]]; then
 fi
 
 # Build the program 
-anchor build
+anchor build 
+
+# Copy the artifacts into the app's artifacts folder
+cp target/idl/dapp_starter.json app/src/artifacts
+cp target/types/dapp_starter.ts app/src/artifacts
+
+
+APP_CONFIG_FILE="app/src/artifacts/config.json"
+# Update the PROGRAM_ID in the config.json file
+TEMP_FILE=$(mktemp)
+
+# Replace the existing programId value with the new PROGRAM_ID
+awk -v program_id="$PROGRAM_ID" \
+  'BEGIN {FS=OFS="\""} \
+  /"programId":/ {$4=program_id} \
+  {print}' "$APP_CONFIG_FILE" > "$TEMP_FILE"
+
+# Replace the original config file with the modified one
+mv "$TEMP_FILE" "$APP_CONFIG_FILE"
