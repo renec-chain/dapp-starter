@@ -2,21 +2,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   BaseWalletAdapter,
-  WalletName,
-  WalletNotReadyError,
-  WalletSignMessageError,
-  WalletSignTransactionError,
   SendTransactionOptions,
-} from "@solana/wallet-adapter-base";
-import {
   WalletAccountError,
   WalletDisconnectionError,
+  WalletName,
+  WalletNotReadyError,
   WalletPublicKeyError,
   WalletReadyState,
+  WalletSignMessageError,
+  WalletSignTransactionError,
 } from "@solana/wallet-adapter-base";
-import { PublicKey, VersionedTransaction } from "@solana/web3.js";
-import { Keypair } from "@solana/web3.js";
-import type { Transaction, Connection } from "@solana/web3.js";
+import type { Connection, Transaction } from "@solana/web3.js";
+import { Keypair, PublicKey, VersionedTransaction } from "@solana/web3.js";
 import EventEmitter from "eventemitter3";
 
 interface E2EWallet extends EventEmitter {
@@ -31,6 +28,12 @@ interface E2EWallet extends EventEmitter {
     txs: T[],
     publicKey?: PublicKey
   ): Promise<T[]>;
+  sendTransaction<T extends Transaction | VersionedTransaction>(
+    tx: T,
+    connection: Connection,
+    signers?: Keypair[],
+    publicKey?: PublicKey
+  ): Promise<string>;
   signMessage(msg: Uint8Array, publicKey?: PublicKey): Promise<Uint8Array>;
   isConnected: boolean;
 }
@@ -124,13 +127,36 @@ export class E2EWalletAdapter extends BaseWalletAdapter {
   async sendTransaction(
     transaction: Transaction,
     connection: Connection,
-    options: SendTransactionOptions
+    options: SendTransactionOptions,
+    signers?: Keypair[]
   ) {
     transaction = await this.prepareTransaction(transaction, connection);
-    const signature = await connection.sendTransaction(transaction, [
-      this._underlyingWallet,
-    ]);
-    return signature;
+    this._underlyingWallet;
+    if (signers) {
+      const signature = await connection.sendTransaction(
+        transaction,
+        signers.concat(this._underlyingWallet)
+      );
+      return signature;
+    } else {
+      const signature = await connection.sendTransaction(transaction, [
+        this._underlyingWallet,
+      ]);
+      return signature;
+    }
+  }
+
+  async sendTransactionWithSigners<T extends Transaction>(
+    transaction: T,
+    connection: Connection,
+    signers?: Keypair[]
+  ): Promise<string> {
+    try {
+      return await this.sendTransaction(transaction, connection, {}, signers);
+    } catch (error: any) {
+      this.emit("error", new WalletSignTransactionError(error?.message, error));
+      throw error;
+    }
   }
 
   signTransaction<T extends Transaction>(transaction: T) {
@@ -154,7 +180,7 @@ export class E2EWalletAdapter extends BaseWalletAdapter {
 
   async signMessage(message: Uint8Array): Promise<Uint8Array> {
     if (!this._wallet || !this._publicKey) {
-      throw new Error("Please connect app before sign transaction!");
+      throw new Error("Please connect wallet before signing!");
     }
     try {
       return await this._wallet.signMessage(message, this._publicKey);
