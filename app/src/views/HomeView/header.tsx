@@ -1,26 +1,18 @@
-import { useCallback, useState, memo, useEffect, useMemo } from 'react'
-import type { MouseEvent } from 'react'
 import {
-  Container,
-  Stack,
-  AppBar,
-  IconButton,
-  Button,
-  Menu,
-  MenuItem,
-  Divider,
-  Typography,
-  Tooltip,
-  Link,
+  AppBar, Button, Container, Divider, IconButton, Link, Menu,
+  MenuItem, Stack, Tooltip, Typography
 } from '@mui/material'
+import type { MouseEvent } from 'react'
+import { memo, useCallback, useEffect, useMemo, useState } from 'react'
 
-import Image from 'next/image'
 import dynamic from 'next/dynamic'
+import Image from 'next/image'
 
 const DemonWalletConnectButton = dynamic(
-  async () => (await import('../../components/WalletButton/WalletMultiButton')).WalletMultiButton,
-  { ssr: false },
-)
+  async () =>
+    (await import("@renec-foundation/wallet-adapter-react")).WalletMultiButton,
+  { ssr: false }
+);
 
 const Header = () => {
   const supportLink = 'https://renec.foundation/support';
@@ -41,8 +33,8 @@ const Header = () => {
 
  
   return (
-    <Container className="px-4 h-16">
-      <AppBar color="transparent" className="bg-top-nav shadow-none">
+    <Container className="h-16 px-4">
+      <AppBar color="transparent" className="shadow-none bg-top-nav">
         <Container className="h-16">
           <Stack
             direction="row"
@@ -62,9 +54,8 @@ const Header = () => {
             </Stack>
             <Stack direction="row" justifyContent="space-between" alignItems="center">
               <Stack className="px-2">
-                <DemonWalletConnectButton className="text-black dark:text-white hover:text-white" />
+                <DemonWalletConnectButton />
               </Stack>
-              
             </Stack>
           </Stack>
         </Container>
