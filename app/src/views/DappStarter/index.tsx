@@ -1,17 +1,17 @@
-import { FC, useEffect, useState } from "react";
-import { useAnchorWallet, useConnection } from "@solana/wallet-adapter-react";
 import * as anchor from "@project-serum/anchor";
+import { useAnchorWallet, useConnection } from "@solana/wallet-adapter-react";
+import { FC, useEffect, useState } from "react";
 
-import styles from "./index.module.css";
-import { initialize, getCounter, increment} from "./methods";
-import { useProgram } from "./useProgram";
+import { useDemonAdapter } from "@renec-foundation/wallet-adapter-react";
 import useLocalStorage from "hooks/useLocalStorage";
+import styles from "./index.module.css";
+import { getCounter, increment, initialize } from "./methods";
+import { useProgram } from "./useProgram";
 
 
 export const DappStarterView: FC = ({}) => {
-  const {connection} = useConnection();
   const [isAirDropped, setIsAirDropped] = useState(false);
-  const wallet = useAnchorWallet();
+  const {anchorWallet: wallet, connectionContext: { connection}} = useDemonAdapter();
 
   const airdropToWallet = async () => {
     if (wallet) {
@@ -29,14 +29,14 @@ export const DappStarterView: FC = ({}) => {
   };
 
   return (
-    <div className="container mx-auto max-w-6xl p-8 2xl:px-0">
+    <div className="container max-w-6xl p-8 mx-auto 2xl:px-0">
       <div className={styles.container}>
        
         <div className="flex mb-16">
           <div className="mr-4">Need some RENEC on test wallet?</div>
           <div className="mr-4">
             <button
-              className="btn btn-primary normal-case btn-xs"
+              className="normal-case btn btn-primary btn-xs"
               onClick={airdropToWallet}
             >
               Airdrop 1 RENEC
@@ -45,7 +45,7 @@ export const DappStarterView: FC = ({}) => {
           {isAirDropped ? <div className="opacity-50">Sent!</div> : null}
         </div>
 
-        <h1 className="mb-5 pb-8 text-5xl">Counter</h1>
+        <h1 className="pb-8 mb-5 text-5xl">Counter</h1>
 
         <div>
           {!wallet ? (
@@ -60,8 +60,7 @@ export const DappStarterView: FC = ({}) => {
 };
 
 const DappStarterScreen = () => {
-  const {connection} = useConnection();
-  const wallet: any = useAnchorWallet();
+  const {anchorWallet: wallet, connectionContext: {connection}} : any = useDemonAdapter();
   const { program } = useProgram({ connection, wallet });
   const [counter, setCounter] = useState<anchor.BN>();
   const [configPubkey, setConfigPubkey] = useLocalStorage<anchor.web3.PublicKey | null>('configPubkey', null)
@@ -105,9 +104,9 @@ const DappStarterScreen = () => {
   };
 
   return (
-    <div className="container mx-auto max-w-6xl p-8 2xl:px-0">
+    <div className="container max-w-6xl p-8 mx-auto 2xl:px-0">
       <div className="flex flex-col items-start">
-        <div className="initialize flex items-center">
+        <div className="flex items-center initialize">
           <div className="mr-2">
             Counter Config: 
           </div>
@@ -118,7 +117,7 @@ const DappStarterScreen = () => {
           </div>
         ) : (
           <button
-            className="btn btn-primary normal-case btn-xs"
+            className="normal-case btn btn-primary btn-xs"
             onClick={handleClickInitialize}
           >
             Initialize Config
@@ -128,18 +127,18 @@ const DappStarterScreen = () => {
 
         <div className="value">
           {counter !== undefined && (
-            <p className="counter text-xl mb-4">
+            <p className="mb-4 text-xl counter">
               Counter: {counter.toNumber()}
             </p>
           )}
         </div>
-        <div className="increment flex items-center">
+        <div className="flex items-center increment">
           <div className="mr-2">
             Increment counter: 
           </div>
           {configPubkey ? (
             <button
-              className="btn btn-primary normal-case btn-xs"
+              className="normal-case btn btn-primary btn-xs"
               onClick={handleIncrement}
             >
               Increment
@@ -153,7 +152,7 @@ const DappStarterScreen = () => {
 
         {configPubkey && (
           <div>    <button
-          className="btn btn-primary normal-case btn-xs"
+          className="normal-case btn btn-primary btn-xs"
           onClick={handleClickInitialize}
         >
           Reset
