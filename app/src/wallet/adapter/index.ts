@@ -2,20 +2,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   BaseMessageSignerWalletAdapter,
-  WalletName,
-  WalletNotReadyError,
-  WalletSignMessageError,
-  WalletSignTransactionError,
-} from "@solana/wallet-adapter-base";
-import {
-  scopePollingDetectionStrategy,
   WalletAccountError,
   WalletDisconnectionError,
+  WalletName,
+  WalletNotReadyError,
   WalletPublicKeyError,
   WalletReadyState,
+  WalletSignMessageError,
+  WalletSignTransactionError,
+  scopePollingDetectionStrategy,
 } from "@solana/wallet-adapter-base";
+import type { Connection, Keypair, Transaction } from "@solana/web3.js";
 import { PublicKey, VersionedTransaction } from "@solana/web3.js";
-import type { Transaction } from "@solana/web3.js";
 import EventEmitter from "eventemitter3";
 
 interface DemonWallet extends EventEmitter {
@@ -30,6 +28,12 @@ interface DemonWallet extends EventEmitter {
     txs: T[],
     publicKey?: PublicKey
   ): Promise<T[]>;
+  sendTransaction<T extends Transaction | VersionedTransaction>(
+    tx: T,
+    connection: Connection,
+    signers?: Keypair[],
+    publicKey?: PublicKey
+  ): Promise<string>;
   signMessage(msg: Uint8Array, publicKey?: PublicKey): Promise<Uint8Array>;
   isConnected: boolean;
 }
@@ -158,11 +162,34 @@ export class DemonWalletAdapter extends BaseMessageSignerWalletAdapter {
     this.emit("disconnect");
   }
 
+  async sendTransactionWithSigners<
+    T extends Transaction | VersionedTransaction
+  >(
+    transaction: T,
+    connection: Connection,
+    signers?: Keypair[]
+  ): Promise<string> {
+    if (!this._wallet || !this._publicKey) {
+      throw new Error("Please connect wallet before signing!");
+    }
+    try {
+      return await this._wallet.sendTransaction(
+        transaction,
+        connection,
+        signers,
+        this._publicKey
+      );
+    } catch (error: any) {
+      this.emit("error", new WalletSignTransactionError(error?.message, error));
+      throw error;
+    }
+  }
+
   async signTransaction<T extends Transaction | VersionedTransaction>(
     transaction: T
   ): Promise<T> {
     if (!this._wallet || !this._publicKey) {
-      throw new Error("Please connect app before sign transaction!");
+      throw new Error("Please connect wallet before signing!");
     }
     try {
       return await this._wallet.signTransaction(transaction, this._publicKey);
@@ -176,7 +203,7 @@ export class DemonWalletAdapter extends BaseMessageSignerWalletAdapter {
     transactions: T[]
   ): Promise<T[]> {
     if (!this._wallet || !this._publicKey) {
-      throw new Error("Please connect app before sign transaction!");
+      throw new Error("Please connect wallet before signing!");
     }
     try {
       return await this._wallet.signAllTransaction(
@@ -191,7 +218,7 @@ export class DemonWalletAdapter extends BaseMessageSignerWalletAdapter {
 
   async signMessage(message: Uint8Array): Promise<Uint8Array> {
     if (!this._wallet || !this._publicKey) {
-      throw new Error("Please connect app before sign transaction!");
+      throw new Error("Please connect wallet before signing!");
     }
     try {
       return await this._wallet.signMessage(message, this._publicKey);

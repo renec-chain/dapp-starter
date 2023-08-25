@@ -1,12 +1,12 @@
-import { FC, useEffect, useState } from "react";
-import { useAnchorWallet, useConnection } from "@solana/wallet-adapter-react";
 import * as anchor from "@project-serum/anchor";
+import { useAnchorWallet, useConnection } from "@solana/wallet-adapter-react";
+import { FC, useCallback, useEffect, useState } from "react";
 
-import styles from "./index.module.css";
-import { initialize, getCounter, increment} from "./methods";
-import { useProgram } from "./useProgram";
+import useDemonWallet from "hooks/useDemonWallet";
 import useLocalStorage from "hooks/useLocalStorage";
-
+import styles from "./index.module.css";
+import { getCounter, increment, initialize } from "./methods";
+import { useProgram } from "./useProgram";
 
 export const DappStarterView: FC = ({}) => {
   const {connection} = useConnection();
@@ -60,12 +60,20 @@ export const DappStarterView: FC = ({}) => {
 };
 
 const DappStarterScreen = () => {
-  const {connection} = useConnection();
+  const { connection } = useConnection();
   const wallet: any = useAnchorWallet();
+  const { mintToken, getTokenAccountData } = useDemonWallet();
   const { program } = useProgram({ connection, wallet });
   const [counter, setCounter] = useState<anchor.BN>();
   const [configPubkey, setConfigPubkey] = useLocalStorage<anchor.web3.PublicKey | null>('configPubkey', null)
   const [lastUpdatedTime, setLastUpdatedTime] = useState<number>();
+  const [mintAccountAddress, setMintAccountAddress] = useState("");
+  const [helperMintToken, setHelperMintToken] = useState({
+    message: "",
+    color: "text-red-500",
+  });
+  const [tokenMintDecimals, setTokenMintDecimals] = useState(0)
+  const [tokenMintAmount] = useState(1000)
 
   useEffect(() => {
     fetchCounter();
@@ -94,15 +102,74 @@ const DappStarterScreen = () => {
     }
   };
 
+  const handleMintAccountAddress = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setHelperMintToken((prev) => ({
+      ...prev,
+      message: "",
+    }));
+    setMintAccountAddress(e.target.value);
+  };
+
   const handleClickInitialize = async () => {
     try {
       let configAddr = await initialize(program!);
       setConfigPubkey(configAddr);
-      setCounter(new anchor.BN(0))
+      setCounter(new anchor.BN(0));
     } catch (error) {
-      console.error('Error fail to initialize counter:', error);
+      console.error("Error fail to initialize counter:", error);
     }
   };
+
+  const handleMintToken = async () => {
+    try {
+      if (!mintAccountAddress) {
+        setHelperMintToken({
+          message: "Please set your mint account address to test out function",
+          color: "text-red-500",
+        });
+        return;
+      }
+      const result = await mintToken({
+        mintAccountAddress, // Your mint address
+        decimals: tokenMintDecimals, // Decimals of your token
+        amount: tokenMintAmount, // Total Supply
+      });
+      if (result.mintSucceeded) {
+        setHelperMintToken({
+          message: `Mint succeeded, your txId is: ${result.tx}`,
+          color: "text-green-500",
+        });
+      } else {
+        setHelperMintToken({
+          message: `Mint failed, error: ${result.error}`,
+          color: "text-red-500",
+        });
+      }
+    } catch (error) {
+      console.error("Error failed to mint token ", error);
+    }
+  };
+
+  const getTokenData = useCallback(async () => {
+    const data = await getTokenAccountData(mintAccountAddress);
+    if (!data.isSucceeded || data.error) {
+      setHelperMintToken({
+        message: `Error: ${data.error}`,
+        color: "text-red-500"
+      })
+    }
+    setTokenMintDecimals(data.tokenDecimals as number)
+  }, [mintAccountAddress])
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      getTokenData()
+    }, 500)
+
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [mintAccountAddress, getTokenData])
 
   return (
     <div className="container mx-auto max-w-6xl p-8 2xl:px-0">
@@ -151,19 +218,32 @@ const DappStarterScreen = () => {
           )}
         </div>
 
-        {configPubkey && (
-          <div>    <button
-          className="btn btn-primary normal-case btn-xs"
-          onClick={handleClickInitialize}
-        >
-          Reset
-        </button></div>
-
-         
-          )}
-        
+        <h2 className="my-5 text-5xl">Mint Token</h2>
+        <div className="flex flex-col mb-2">
+          <label htmlFor="mint-account">Mint account address:</label>
+          <input
+            type="text"
+            placeholder="Input your mint account address"
+            className="w-full max-w-xs input input-info"
+            onChange={handleMintAccountAddress}
+            id="mint-account"
+          />
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            className="normal-case btn btn-primary btn-xs"
+            onClick={handleMintToken}
+            disabled={!!helperMintToken.message}
+          >
+            Mint {tokenMintAmount} token
+          </button>
+        </div>
+        {helperMintToken.message && (
+          <p className={`text-sm italic ${helperMintToken.color}`}>
+            {helperMintToken.message}
+          </p>
+        )}
       </div>
     </div>
   );
-  
 };
