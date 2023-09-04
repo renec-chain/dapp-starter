@@ -8,6 +8,11 @@ export const getRpcEndpointUrl = () =>
 
 export const TOKEN_PROGRAM_ID = "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA";
 
+export const IS_MAINNET = process.env.NEXT_PUBLIC_IS_MAINNET === "true";
+
+export const KYC_PROVIDER_NAME =
+  process.env.NEXT_PUBLIC_KYC_PROVIDER_NAME || ""; // !! PLEASE YOUR PROVIDER TO WORK WITH KYC EXAMPLE
+
 export const A_HUNDRED_PERCENT = 10000;
 export const TICK_SPACING = 32;
 export const SLIPPAGE = 1;

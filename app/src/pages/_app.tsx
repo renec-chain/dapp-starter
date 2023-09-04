@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import "tailwindcss/tailwind.css";
+import { IS_MAINNET } from '../constants/index';
 
 // Require because we want them to be in order
 require("../styles/App.css")
@@ -19,7 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider  client={queryClient}>
       <WalletProvider
-        isMainnet={false}
+        isMainnet={IS_MAINNET}
         autoConnect={true}
       >
         <Component {...pageProps} />

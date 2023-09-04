@@ -1,48 +1,50 @@
+import { Connection, PublicKey, Transaction } from "@solana/web3.js";
 import { useEffect, useState } from "react";
-import { Connection, PublicKey } from "@solana/web3.js";
-import * as anchor from "@project-serum/anchor";
 
-import idl from "artifacts/dapp_starter.json";
+import { AnchorProvider, Program } from "@project-serum/anchor";
 import config from "artifacts/config.json";
 import { DappStarter } from "artifacts/dapp_starter";
+import idl from "artifacts/dapp_starter.json";
 
 const programID = new PublicKey(config.programId);
 
 export interface Wallet {
   signTransaction(
-    tx: anchor.web3.Transaction
-  ): Promise<anchor.web3.Transaction>;
+    tx: Transaction
+  ): Promise<Transaction>;
   signAllTransactions(
-    txs: anchor.web3.Transaction[]
-  ): Promise<anchor.web3.Transaction[]>;
-  publicKey: anchor.web3.PublicKey;
+    txs: Transaction[]
+  ): Promise<Transaction[]>;
+  publicKey: PublicKey;
 }
 
 type ProgramProps = {
   connection: Connection;
-  wallet: Wallet;
+  wallet: Wallet | undefined;
 };
 
 export const useProgram = ({ connection, wallet }: ProgramProps) => {
-  const [program, setProgram] = useState<anchor.Program<DappStarter>>();
+  const [program, setProgram] = useState<Program<DappStarter>>();
 
   useEffect(() => {
     updateProgram();
   }, [connection, wallet]);
 
   const updateProgram = () => {
-    const provider = new anchor.Provider(connection, wallet, {
-      preflightCommitment: "recent",
-      commitment: "processed",
-    });
-    console.log("provider", provider);
-
-    //   const idl = await anchor.Program.fetchIdl(programID, provider);
-    //   console.log("idl", idl);
-
-    const program = new anchor.Program(idl as DappStarter, programID, provider);
-
-    setProgram(program);
+    if (wallet) {
+      const provider = new AnchorProvider(connection, wallet, {
+        preflightCommitment: "recent",
+        commitment: "processed",
+      });
+      console.log("provider", provider);
+  
+      //   const idl = await anchor.Program.fetchIdl(programID, provider);
+      //   console.log("idl", idl);
+  
+      const program = new Program(idl as DappStarter, programID, provider);
+  
+      setProgram(program);
+    }
   };
 
   return {
