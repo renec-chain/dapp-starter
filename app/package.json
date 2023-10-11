@@ -16,11 +16,8 @@
     "@mui/material": "^5.12.2",
     "@nfteyez/sol-rayz-react": "^0.8.2",
     "@project-serum/anchor": "^0.19.1-beta.1",
-    "@renec-foundation/wallet-adapter-react": "^0.1.6",
-    "@solana/spl-token": "^0.1.8",
-    "@solana/wallet-adapter-base": "^0.9.21",
-    "@solana/wallet-adapter-react": "^0.15.29",
-    "@solana/wallet-adapter-react-ui": "^0.6.0",
+    "@renec-foundation/wallet-adapter-react": "^0.2.4",
+    "@solana/spl-token": "^0.3.8",
     "@tailwindcss/typography": "^0.4.1",
     "@types/lodash.orderby": "^4.6.6",
     "daisyui": "^1.16.2",
@@ -40,16 +37,17 @@
     "usehooks-ts": "^2.9.1"
   },
   "devDependencies": {
-    "@types/react": "^18.2.18",
+    "@types/react": "18.2.20",
+    "@types/react-dom": "18.2.7",
     "autoprefixer": "^10.4.0",
-    "eslint": "7",
-    "eslint-config-next": "12.0.3",
+    "eslint": "8.46.0",
+    "eslint-config-next": "13.4.13",
     "postcss": "^8.3.11",
     "tailwindcss": "^2.2.19",
-    "typescript": "4.6.2"
+    "typescript": "5.1.6"
   },
   "resolutions": {
-    "@types/react": "17.0.2",
-    "@types/react-dom": "17.0.2"
+    "@types/react": "18.2.20",
+    "@types/react-dom": "18.2.7"
   }
 }

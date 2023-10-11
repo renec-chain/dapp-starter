@@ -20,7 +20,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     <QueryClientProvider  client={queryClient}>
       <WalletProvider
         isMainnet={false}
-        autoConnect={true}
       >
         <Component {...pageProps} />
       </WalletProvider>

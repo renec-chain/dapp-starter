@@ -1,33 +1,13 @@
 /** @type {import('next').NextConfig} */
-const withPlugins = require("next-compose-plugins");
 
 /** eslint-disable @typescript-eslint/no-var-requires */
 const withTM = require("next-transpile-modules")([
-  "@solana/wallet-adapter-base",
   "@renec-foundation/wallet-adapter-react"
 ]);
 
-// add this if you need LESS
-// also install less and less-loader
-// const withLess = require("next-with-less");
-
-const plugins = [
-  // add this if you need LESS
-  // [withLess, {
-  //   lessLoaderOptions: {
-  //     /* ... */
-  //   },
-  // }],
-  [
-    withTM,
-    {
-      reactStrictMode: true,
-    },
-  ],
-];
-
-const nextConfig = {
+const nextConfig = withTM({
   distDir: "build",
+  reactStrictMode: true,
   swcMinify: true,
   webpack: (config, { isServer }) => {
     if (!isServer) {
@@ -39,6 +19,6 @@ const nextConfig = {
     }
     return config;
   },
-};
+});
 
-module.exports = withPlugins(plugins, nextConfig);
+module.exports = nextConfig;
