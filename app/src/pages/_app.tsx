@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import { Provider as WalletProvider } from "@renec-foundation/wallet-adapter-react";
 import type { AppProps } from "next/app";
-import dynamic from "next/dynamic";
-import { ConnectionProvider } from "@solana/wallet-adapter-react";
-import WalletProvider from "../providers/wallet"
-import "tailwindcss/tailwind.css";
-import "../styles/globals.css";
-import "../styles/App.css";
+import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { getRpcEndpointUrl } from "../constants";
+import "tailwindcss/tailwind.css";
 
+// Require because we want them to be in order
+require("../styles/App.css")
+require("../styles/globals.css")
+require('@renec-foundation/wallet-adapter-react/src/style.css')
 // set custom RPC server endpoint for the final website
 // const endpoint = "https://explorer-api.devnet.solana.com";
 // const endpoint = "http://127.0.0.1:8899";
@@ -19,11 +18,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(() => new QueryClient())
   return (
     <QueryClientProvider  client={queryClient}>
-      <ConnectionProvider endpoint={getRpcEndpointUrl()}>
-        <WalletProvider>
-          <Component {...pageProps} />
-        </WalletProvider>
-    </ConnectionProvider>
+      <WalletProvider
+        isMainnet={false}
+      >
+        <Component {...pageProps} />
+      </WalletProvider>
     </QueryClientProvider>
     
   );
