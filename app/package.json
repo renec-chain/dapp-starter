@@ -18,7 +18,7 @@
     "@project-serum/anchor": "^0.19.1-beta.1",
     "@renec-foundation/wallet-adapter-react": "^0.2.4",
     "@solana/spl-token": "^0.3.8",
-    "@tailwindcss/typography": "^0.4.1",
+    "@tailwindcss/typography": "^0.5.10",
     "@types/lodash.orderby": "^4.6.6",
     "daisyui": "^1.16.2",
     "lodash.orderby": "^4.6.0",
