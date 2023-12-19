@@ -12,7 +12,7 @@
     "@emotion/react": "^11.10.8",
     "@emotion/styled": "^11.10.8",
     "@heroicons/react": "^1.0.5",
-    "@mui/icons-material": "^5.11.16",
+    "@mui/icons-material": "^5.14.18",
     "@mui/material": "^5.12.2",
     "@nfteyez/sol-rayz-react": "^0.8.2",
     "@project-serum/anchor": "^0.19.1-beta.1",
