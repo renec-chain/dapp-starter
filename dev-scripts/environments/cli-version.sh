@@ -16,7 +16,7 @@ echo "CLI VERSION: $CLI_VERSION"
 if [[ -n $CLI_VERSION ]]; then
   cli_version="$CLI_VERSION"
 else
-  cli_version=1.14.6
+  cli_version=1.14.17
 fi
 
 

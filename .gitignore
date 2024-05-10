@@ -8,3 +8,4 @@ app/build
 solana-install-init.exe
 .env
 .env.production
+.idea

@@ -57,3 +57,9 @@ awk -v program_id="$PROGRAM_ID" \
 
 # Replace the original config file with the modified one
 mv "$TEMP_FILE" "$APP_CONFIG_FILE"
+
+# Replace address in Anchor.toml so we can run local test
+ANCHOR_TOML_FILE="./Anchor.toml"
+NEW_LINE="${PROGRAM_NAME_UNDERSCORE} = \"${PROGRAM_ID}\""
+sed "2 s/.*/${NEW_LINE}/" ${ANCHOR_TOML_FILE} > tmp.toml
+mv tmp.toml ${ANCHOR_TOML_FILE}
